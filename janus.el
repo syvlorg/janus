@@ -25,7 +25,11 @@
 
 ;;; Code:
 
-;; code goes here
+(defface meq/flamingo-pink
+  '((((class color) (background light))
+     :foreground "#ab5dee" :bold t)
+    (((class color) (background dark))
+     :foreground "#fca78e" :bold t)) "flamingo-pink")
 
 (provide 'janus)
 ;;; janus.el ends here
