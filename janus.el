@@ -29,22 +29,7 @@
 (require 's)
 (require 'dash)
 
-(defvar meq/aliases '(
-    :orange (orange flamingo-pink)))
-
-(defvar meq/modes '(
-    :light '()
-    :dark '()))
-
-(mapc #'(lambda (alias) (interactive)
-        (mapc #'(lambda (color) (interactive)
-            (push color (plist-get meq/modes :light))) (plist-get meq/aliases alias))) '(
-    :orange))
-
-(mapc #'(lambda (alias) (interactive)
-        (mapc #'(lambda (color) (interactive)
-            (push color (plist-get meq/modes :dark))) (plist-get meq/aliases alias))) '(
-    ))
+(defvar meq/aliases '(:orange (orange flamingo-pink)))
 
 (defvar meq/faces `(
     ;; Adapted From: http://ergoemacs.org/emacs/elisp_define_face.html
@@ -76,14 +61,10 @@
         'face-defface-spec))
 
 ;;;###autoload
-(defun meq/same-color-switch (name mode) (interactive)
+(defun meq/same-color-switch (name) (interactive)
     (mapc #'(lambda (color) (interactive)
         (let* ((contains-list (mapcar #'(lambda (alias) (interactive)
-            (and
-                (s-contains? (symbol-name alias) name)
-                (member alias (plist-get
-                                meq/modes
-                                (intern (concat ":" mode)))))) (plist-get (cdr color) :aliases))))
+            (s-contains? (symbol-name alias) name)) (plist-get (cdr color) :aliases))))
         (if (--any? (and it t) contains-list)
             (eval `(meq/set-alternate-color ,(car color)))
             (eval `(meq/set-original-color ,(car color)))))) meq/faces))
@@ -102,11 +83,10 @@
 
 ;;;###autoload
 (defun meq/load-theme (theme) (interactive)
-    (let* ((name (symbol-name theme))
-            (mode (car (last (split-string name "-")))))
+    (let* ((name (symbol-name theme)))
         (setq current-theme theme)
-        (setq current-theme-mode mode)
-        (meq/same-color-switch name mode)
+        (setq current-theme-mode (car (last (split-string name "-"))))
+        (meq/same-color-switch name)
         (load-theme theme)))
 
 ;;;###autoload
