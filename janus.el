@@ -66,7 +66,7 @@
     (mapc #'(lambda (color) (interactive)
         (let* ((contains-list (mapcar #'(lambda (alias) (interactive)
             (s-contains? (symbol-name alias) name)) (plist-get (cdr color) :aliases))))
-        (if (--any? (and it t) contains-list)
+        (if (or (member "-p" command-line-args) (--any? (and it t) contains-list))
             (eval `(meq/set-alternate-color ,(car color)))
             (eval `(meq/set-original-color ,(car color)))))) meq/var/faces))
 
