@@ -25,11 +25,84 @@
 
 ;;; Code:
 
-(defface meq/flamingo-pink
-  '((((class color) (background light))
-     :foreground "#ab5dee" :bold t)
-    (((class color) (background dark))
-     :foreground "#fca78e" :bold t)) "flamingo-pink")
+(require 'cl-lib)
+(require 's)
+(require 'dash)
+
+(defvar meq/aliases '(
+    :orange (orange flamingo-pink)))
+
+(defvar meq/faces `(
+    ;; Adapted From: http://ergoemacs.org/emacs/elisp_define_face.html
+    (flamingo-pink . (:alternate ((((class color) (background light))
+                                    :foreground "#ab5dee" :bold t)
+                                    (((class color) (background dark))
+                                    :foreground "#fca78e" :bold t))
+                    :original ((t (:foreground "#fca78e" :bold t)))
+                    :aliases ,(plist-get meq/aliases :orange)))
+    (orange . (:alternate ((((class color) (background light))
+                                    :foreground "#ab5dee" :bold t)
+                                    (((class color) (background dark))
+                                    :foreground "#ffb86c" :bold t))
+                    :original ((t (:foreground "#ffb86c" :bold t)))
+                    :aliases ,(plist-get meq/aliases :orange)))))
+
+;;;###autoload
+(defmacro meq/set-alternate-color (color) (interactive)
+    (face-spec-set
+        (intern (concat "meq/" (symbol-name color)))
+        (plist-get (cdr (assq color meq/faces)) :alternate)
+        'face-defface-spec))
+
+;;;###autoload
+(defmacro meq/set-original-color (color) (interactive)
+    (face-spec-set
+        (intern (concat "meq/" (symbol-name color)))
+        (plist-get (cdr (assq color meq/faces)) :original)
+        'face-defface-spec))
+
+;;;###autoload
+(defun meq/same-color-switch (name) (interactive)
+    (mapc #'(lambda (color) (interactive)
+        (let* ((contains-list (mapc #'(lambda (alias) (interactive)
+            (s-contains? (symbol-name alias) name)) (plist-get (cdr color) :aliases))))
+        (if (--any? (and it t) contains-list)
+            (eval `(meq/set-alternate-color ,(car color)))
+            (eval `(meq/set-original-color ,(car color)))))) meq/faces))
+
+;; (mapc #'(lambda (color) (interactive)
+;;     (eval `(defface
+;;         ,(intern (concat "meq/" (symbol-name (car color))))
+;;         ',(plist-get (cdr color) :original)
+;;         ,(symbol-name (car color))))) meq/faces)
+
+(mapc #'(lambda (color) (interactive)
+    `(face-spec-set
+        ,(intern (concat "meq/" (symbol-name (car color))))
+        ',(plist-get (cdr color) :original)
+        'face-defface-spec)) meq/faces)
+
+;;;###autoload
+(defun meq/load-theme (theme) (interactive)
+    (let* ((name (symbol-name theme)))
+        (setq current-theme theme)
+        (setq current-theme-mode (car (last (split-string name "-"))))
+        (meq/same-color-switch name)
+        (load-theme theme)))
+
+;;;###autoload
+(defun meq/which-theme nil (interactive)
+    (when (member "--theme" command-line-args)
+        (meq/load-theme (intern (concat
+            (nth (1+ (seq-position command-line-args "--theme")) command-line-args)
+            (if (member "--light" command-line-args) "-light" "-dark"))))))
+
+;;;###autoload
+(defun meq/switch-theme-mode nil (interactive)
+    (meq/load-theme (intern (concat
+        (replace-regexp-in-string "-dark" "" (replace-regexp-in-string "-light" "" (symbol-name current-theme)))
+        "-"
+        (if (string= current-theme-mode "light") "dark" "light")))))
 
 (provide 'janus)
 ;;; janus.el ends here
