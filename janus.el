@@ -64,7 +64,7 @@
 ;;;###autoload
 (defun meq/same-color-switch (name) (interactive)
     (mapc #'(lambda (color) (interactive)
-        (let* ((contains-list (mapc #'(lambda (alias) (interactive)
+        (let* ((contains-list (mapcar #'(lambda (alias) (interactive)
             (s-contains? (symbol-name alias) name)) (plist-get (cdr color) :aliases))))
         (if (--any? (and it t) contains-list)
             (eval `(meq/set-alternate-color ,(car color)))
