@@ -39,19 +39,35 @@
 (defvar meq/var/current-theme nil)
 (defvar meq/var/current-theme-mode nil)
 (defvar meq/var/aliases '(:orange (orange flamingo-pink)))
+(defvar meq/var/modes '(:light nil :dark nil))
+
+(mapc #'(lambda (color) (interactive)
+    (mapc #'(lambda (alias) (interactive)
+        (push alias (plist-get meq/var/modes :light))) (plist-get meq/var/aliases color)))
+    '(:orange))
+
+(mapc #'(lambda (color) (interactive)
+    (mapc #'(lambda (alias) (interactive)
+        (push alias (plist-get meq/var/modes :dark))) (plist-get meq/var/aliases color)))
+    '())
+
 (defvar meq/var/faces `(
     ;; Adapted From: http://ergoemacs.org/emacs/elisp_define_face.html
-    (flamingo-pink . (:alternate ((((class color) (background light))
-                                    :foreground "#ab5dee" :bold t)
-                                    (((class color) (background dark))
-                                    :foreground "#fca78e" :bold t))
-                    :original ((t (:foreground "#ab5dee" :bold t)))
+    (flamingo-pink . (
+                    ;; :alternate ((((class color) (background light))
+                    ;;                 :foreground "#ab5dee" :bold t)
+                    ;;                 (((class color) (background dark))
+                    ;;                 :foreground "#fca78e" :bold t))
+                    :alternate ((t (:foreground "#ab5dee" :bold t)))
+                    :original ((t (:foreground "#fca78e" :bold t)))
                     :aliases ,(plist-get meq/var/aliases :orange)))
-    (orange . (:alternate ((((class color) (background light))
-                                    :foreground "#ab5dee" :bold t)
-                                    (((class color) (background dark))
-                                    :foreground "#ffb86c" :bold t))
-                    :original ((t (:foreground "#ab5dee" :bold t)))
+    (orange . (
+                    ;; :alternate ((((class color) (background light))
+                    ;;                 :foreground "#ab5dee" :bold t)
+                    ;;                 (((class color) (background dark))
+                    ;;                 :foreground "#ffb86c" :bold t))
+                    :alternate ((t (:foreground "#ab5dee" :bold t)))
+                    :original ((t (:foreground "#ffb86c" :bold t)))
                     :aliases ,(plist-get meq/var/aliases :orange)))))
 
 ;;;###autoload
@@ -69,10 +85,14 @@
         'face-defface-spec))
 
 ;;;###autoload
-(defun meq/same-color-switch (name) (interactive)
+(defun meq/same-color-switch (name mode) (interactive)
     (mapc #'(lambda (color) (interactive)
         (let* ((contains-list (mapcar #'(lambda (alias) (interactive)
-            (s-contains? (symbol-name alias) name)) (plist-get (cdr color) :aliases))))
+            (and
+                (s-contains? (symbol-name alias) name)
+                (member alias (plist-get
+                    meq/var/modes
+                    (intern (concat ":" mode)))))) (plist-get (cdr color) :aliases))))
         (if (--any? (and it t) contains-list)
             (eval `(meq/set-alternate-color ,(car color)))
             (eval `(meq/set-original-color ,(car color)))))) meq/var/faces))
@@ -91,10 +111,11 @@
 
 ;;;###autoload
 (defun meq/load-theme (theme) (interactive)
-    (let* ((name (symbol-name theme)))
+    (let* ((name (symbol-name theme))
+            (mode (car (last (split-string name "-")))))
         (setq meq/var/current-theme theme)
-        (setq meq/var/current-theme-mode (car (last (split-string name "-"))))
-        (meq/same-color-switch name)
+        (setq meq/var/current-theme-mode mode)
+        (meq/same-color-switch name mode)
         (load-theme theme)))
 
 ;;;###autoload
