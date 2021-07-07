@@ -35,16 +35,16 @@
 (defvar meq/var/faces `(
     ;; Adapted From: http://ergoemacs.org/emacs/elisp_define_face.html
     (flamingo-pink . (:alternate ((((class color) (background light))
-                                    :foreground "#222222" :bold t)
+                                    :foreground "#ab5dee" :bold t)
                                     (((class color) (background dark))
                                     :foreground "#fca78e" :bold t))
-                    :original ((t (:foreground "#fca78e" :bold t)))
+                    :original ((t (:foreground "#ab5dee" :bold t)))
                     :aliases ,(plist-get meq/var/aliases :orange)))
     (orange . (:alternate ((((class color) (background light))
-                                    :foreground "#222222" :bold t)
+                                    :foreground "#ab5dee" :bold t)
                                     (((class color) (background dark))
                                     :foreground "#ffb86c" :bold t))
-                    :original ((t (:foreground "#ffb86c" :bold t)))
+                    :original ((t (:foreground "#ab5dee" :bold t)))
                     :aliases ,(plist-get meq/var/aliases :orange)))))
 
 ;;;###autoload
