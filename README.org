@@ -80,13 +80,13 @@
 ;; (mapc #'(lambda (color) (interactive)
 ;;     (eval `(defface
 ;;         ,(intern (concat "meq/" (symbol-name (car color))))
-;;         ',(plist-get (cdr color) (if (member "-p" command-line-args) :alternate :original))
+;;         ',(plist-get (cdr color) :alternate)
 ;;         ,(symbol-name (car color))))) meq/var/faces)
 
 (mapc #'(lambda (color) (interactive)
     `(face-spec-set
         ,(intern (concat "meq/" (symbol-name (car color))))
-        ',(plist-get (cdr color) (if (member "-p" command-line-args) :alternate :original))
+        ',(plist-get (cdr color) :alternate)
         'face-defface-spec)) meq/var/faces)
 
 ;;;###autoload
