@@ -66,20 +66,20 @@
     (mapc #'(lambda (color) (interactive)
         (let* ((contains-list (mapcar #'(lambda (alias) (interactive)
             (s-contains? (symbol-name alias) name)) (plist-get (cdr color) :aliases))))
-        (if (or (member "-p" command-line-args) (--any? (and it t) contains-list))
+        (if (--any? (and it t) contains-list)
             (eval `(meq/set-alternate-color ,(car color)))
             (eval `(meq/set-original-color ,(car color)))))) meq/var/faces))
 
 ;; (mapc #'(lambda (color) (interactive)
 ;;     (eval `(defface
 ;;         ,(intern (concat "meq/" (symbol-name (car color))))
-;;         ',(plist-get (cdr color) :original)
+;;         ',(plist-get (cdr color) (if (member "-p" command-line-args) :alternate :original))
 ;;         ,(symbol-name (car color))))) meq/var/faces)
 
 (mapc #'(lambda (color) (interactive)
     `(face-spec-set
         ,(intern (concat "meq/" (symbol-name (car color))))
-        ',(plist-get (cdr color) :original)
+        ',(plist-get (cdr color) (if (member "-p" command-line-args) :alternate :original))
         'face-defface-spec)) meq/var/faces)
 
 ;;;###autoload
