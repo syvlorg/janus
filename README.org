@@ -77,17 +77,17 @@
             (eval `(meq/set-alternate-color ,(car color)))
             (eval `(meq/set-original-color ,(car color)))))) meq/var/faces))
 
-;; (mapc #'(lambda (color) (interactive)
-;;     (eval `(defface
-;;         ,(intern (concat "meq/" (symbol-name (car color))))
-;;         ',(plist-get (cdr color) :alternate)
-;;         ,(symbol-name (car color))))) meq/var/faces)
-
 (mapc #'(lambda (color) (interactive)
-    `(face-spec-set
+    (eval `(defface
         ,(intern (concat "meq/" (symbol-name (car color))))
-        ',(plist-get (cdr color) :alternate)
-        'face-defface-spec)) meq/var/faces)
+        ',(plist-get (cdr color) (if (member "-p" command-line-args) :alternate :original))
+        ,(symbol-name (car color))))) meq/var/faces)
+
+;; (mapc #'(lambda (color) (interactive)
+;;     `(face-spec-set
+;;         ,(intern (concat "meq/" (symbol-name (car color))))
+;;         ',(plist-get (cdr color) :original)
+;;         'face-defface-spec)) meq/var/faces)
 
 ;;;###autoload
 (defun meq/load-theme (theme) (interactive)
