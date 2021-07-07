@@ -42,13 +42,13 @@
 (defvar meq/var/faces `(
     ;; Adapted From: http://ergoemacs.org/emacs/elisp_define_face.html
     (flamingo-pink . (:alternate ((((class color) (background light))
-                                    :foreground "#ab5dee" :bold t)
+                                    :foreground "#222222" :bold t)
                                     (((class color) (background dark))
                                     :foreground "#fca78e" :bold t))
                     :original ((t (:foreground "#fca78e" :bold t)))
                     :aliases ,(plist-get meq/var/aliases :orange)))
     (orange . (:alternate ((((class color) (background light))
-                                    :foreground "#ab5dee" :bold t)
+                                    :foreground "#222222" :bold t)
                                     (((class color) (background dark))
                                     :foreground "#ffb86c" :bold t))
                     :original ((t (:foreground "#ffb86c" :bold t)))
@@ -77,17 +77,17 @@
             (eval `(meq/set-alternate-color ,(car color)))
             (eval `(meq/set-original-color ,(car color)))))) meq/var/faces))
 
-(mapc #'(lambda (color) (interactive)
-    (eval `(defface
-        ,(intern (concat "meq/" (symbol-name (car color))))
-        ',(plist-get (cdr color) (if (member "-p" command-line-args) :alternate :original))
-        ,(symbol-name (car color))))) meq/var/faces)
-
 ;; (mapc #'(lambda (color) (interactive)
-;;     `(face-spec-set
+;;     (eval `(defface
 ;;         ,(intern (concat "meq/" (symbol-name (car color))))
-;;         ',(plist-get (cdr color) :original)
-;;         'face-defface-spec)) meq/var/faces)
+;;         ',(plist-get (cdr color)  :original)
+;;         ,(symbol-name (car color))))) meq/var/faces)
+
+(mapc #'(lambda (color) (interactive)
+    `(face-spec-set
+        ,(intern (concat "meq/" (symbol-name (car color))))
+        ',(plist-get (cdr color) :original)
+        'face-defface-spec)) meq/var/faces)
 
 ;;;###autoload
 (defun meq/load-theme (theme) (interactive)
