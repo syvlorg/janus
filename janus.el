@@ -36,12 +36,12 @@
 
 (mapc #'(lambda (color) (interactive)
     (mapc #'(lambda (alias) (interactive)
-        (push alias (plist-get meq/var/modes :light))) (plist-get meq/var/aliases color)))
+        (push alias (cl-getf meq/var/modes :light))) (cl-getf meq/var/aliases color)))
     '(:orange))
 
 (mapc #'(lambda (color) (interactive)
     (mapc #'(lambda (alias) (interactive)
-        (push alias (plist-get meq/var/modes :dark))) (plist-get meq/var/aliases color)))
+        (push alias (cl-getf meq/var/modes :dark))) (cl-getf meq/var/aliases color)))
     '())
 
 (defvar meq/var/faces `(
@@ -53,7 +53,7 @@
                     ;;                 :foreground "#fca78e" :bold t))
                     :alternate ((t (:foreground "#ab5dee" :bold t)))
                     :original ((t (:foreground "#fca78e" :bold t)))
-                    :aliases ,(plist-get meq/var/aliases :orange)))
+                    :aliases ,(cl-getf meq/var/aliases :orange)))
     (orange . (
                     ;; :alternate ((((class color) (background light))
                     ;;                 :foreground "#ab5dee" :bold t)
@@ -61,20 +61,20 @@
                     ;;                 :foreground "#ffb86c" :bold t))
                     :alternate ((t (:foreground "#ab5dee" :bold t)))
                     :original ((t (:foreground "#ffb86c" :bold t)))
-                    :aliases ,(plist-get meq/var/aliases :orange)))))
+                    :aliases ,(cl-getf meq/var/aliases :orange)))))
 
 ;;;###autoload
 (defmacro meq/set-alternate-color (color) (interactive)
     (face-spec-set
         (intern (concat "meq/" (symbol-name color)))
-        (plist-get (cdr (assq color meq/var/faces)) :alternate)
+        (cl-getf (cdr (assq color meq/var/faces)) :alternate)
         'face-defface-spec))
 
 ;;;###autoload
 (defmacro meq/set-original-color (color) (interactive)
     (face-spec-set
         (intern (concat "meq/" (symbol-name color)))
-        (plist-get (cdr (assq color meq/var/faces)) :original)
+        (cl-getf (cdr (assq color meq/var/faces)) :original)
         'face-defface-spec))
 
 ;;;###autoload
@@ -83,9 +83,9 @@
         (let* ((contains-list (mapcar #'(lambda (alias) (interactive)
             (and
                 (s-contains? (symbol-name alias) name)
-                (member alias (plist-get
+                (member alias (cl-getf
                     meq/var/modes
-                    (intern (concat ":" mode)))))) (plist-get (cdr color) :aliases))))
+                    (intern (concat ":" mode)))))) (cl-getf (cdr color) :aliases))))
         (if (--any? (and it t) contains-list)
             (eval `(meq/set-alternate-color ,(car color)))
             (eval `(meq/set-original-color ,(car color)))))) meq/var/faces))
@@ -93,13 +93,13 @@
 ;; (mapc #'(lambda (color) (interactive)
 ;;     (eval `(defface
 ;;         ,(intern (concat "meq/" (symbol-name (car color))))
-;;         ',(plist-get (cdr color)  :original)
+;;         ',(cl-getf (cdr color)  :original)
 ;;         ,(symbol-name (car color))))) meq/var/faces)
 
 (mapc #'(lambda (color) (interactive)
     `(face-spec-set
         ,(intern (concat "meq/" (symbol-name (car color))))
-        ',(plist-get (cdr color) :original)
+        ',(cl-getf (cdr color) :original)
         'face-defface-spec)) meq/var/faces)
 
 ;;;###autoload
