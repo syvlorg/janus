@@ -35,6 +35,7 @@
 (require 'cl-lib)
 (require 's)
 (require 'dash)
+(require 'meq)
 
 (defvar meq/var/current-theme nil)
 (defvar meq/var/current-theme-mode nil)
@@ -73,14 +74,14 @@
 ;;;###autoload
 (defmacro meq/set-alternate-color (color) (interactive)
     (face-spec-set
-        (intern (concat "meq/" (symbol-name color)))
+        (meq/inconcat "meq/" (symbol-name color))
         (cl-getf (cdr (assq color meq/var/faces)) :alternate)
         'face-defface-spec))
 
 ;;;###autoload
 (defmacro meq/set-original-color (color) (interactive)
     (face-spec-set
-        (intern (concat "meq/" (symbol-name color)))
+        (meq/inconcat "meq/" (symbol-name color))
         (cl-getf (cdr (assq color meq/var/faces)) :original)
         'face-defface-spec))
 
@@ -92,20 +93,20 @@
                 (s-contains? (symbol-name alias) name)
                 (member alias (cl-getf
                     meq/var/modes
-                    (intern (concat ":" mode)))))) (cl-getf (cdr color) :aliases))))
+                    (meq/inconcat ":" mode))))) (cl-getf (cdr color) :aliases))))
         (if (--any? (and it t) contains-list)
             (eval `(meq/set-alternate-color ,(car color)))
             (eval `(meq/set-original-color ,(car color)))))) meq/var/faces))
 
 ;; (mapc #'(lambda (color) (interactive)
 ;;     (eval `(defface
-;;         ,(intern (concat "meq/" (symbol-name (car color))))
+;;         ,(meq/inconcat "meq/" (symbol-name (car color)))
 ;;         ',(cl-getf (cdr color)  :original)
 ;;         ,(symbol-name (car color))))) meq/var/faces)
 
 (mapc #'(lambda (color) (interactive)
     `(face-spec-set
-        ,(intern (concat "meq/" (symbol-name (car color))))
+        ,(meq/inconcat "meq/" (symbol-name (car color)))
         ',(cl-getf (cdr color) :original)
         'face-defface-spec)) meq/var/faces)
 
