@@ -30,8 +30,8 @@
 (require 'dash)
 (require 'meq)
 
-(defvar meq/var/current-theme nil)
-(defvar meq/var/current-theme-mode nil)
+(defcustom meq/var/current-theme nil "The default theme.")
+(defcustom meq/var/current-theme-mode nil "The default theme mode.")
 (defvar meq/var/aliases '(:orange (orange flamingo-pink)))
 (defvar meq/var/modes '(:light nil :dark nil))
 
@@ -107,8 +107,15 @@
 (defun meq/load-theme (theme) (interactive)
     (let* ((name (symbol-name theme))
             (mode (car (last (split-string name "-")))))
+
+        ;; Adapted From:
+        ;; Answer: https://stackoverflow.com/a/18552615/10827766
+        ;; User: https://stackoverflow.com/users/729907/drew
         (setq meq/var/current-theme theme)
+        (customize-save-variable 'meq/var/current-theme theme)
         (setq meq/var/current-theme-mode mode)
+        (customize-save-variable 'meq/var/current-theme-mode mode)
+
         (meq/same-color-switch name mode)
         (load-theme theme)))
 
