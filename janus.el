@@ -111,10 +111,10 @@
         ;; Adapted From:
         ;; Answer: https://stackoverflow.com/a/18552615/10827766
         ;; User: https://stackoverflow.com/users/729907/drew
-        (setq meq/var/current-theme theme)
+        (save-excursion (setq meq/var/current-theme theme)
         (customize-save-variable 'meq/var/current-theme theme)
         (setq meq/var/current-theme-mode mode)
-        (customize-save-variable 'meq/var/current-theme-mode mode)
+        (customize-save-variable 'meq/var/current-theme-mode mode))
 
         (meq/same-color-switch name mode)
         (load-theme theme)))
