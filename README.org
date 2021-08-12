@@ -41,8 +41,8 @@
 (defcustom meq/var/current-theme-mode nil "The default theme mode.")
 (defvar meq/var/aliases '(:orange (orange flamingo-pink)))
 (defvar meq/var/modes '(:light nil :dark nil))
-(defvar meq/var/rainbow-identifiers-light 50)
-(defvar meq/var/rainbow-identifiers-dark 30)
+(defvar meq/var/rainbow-identifiers-saturation-light 50)
+(defvar meq/var/rainbow-identifiers-saturation-dark 30)
 (setq rainbow-identifiers-cie-l*a*b*-color-count most-positive-fixnum)
 (setq rainbow-identifiers-choose-face-function 'rainbow-identifiers-cie-l*a*b*-choose-face)
 
@@ -115,9 +115,24 @@
         'face-defface-spec)) meq/var/faces)
 
 ;;;###autoload
+(defun meq/first-char-numeric-p (hex)
+    (s-with hex
+        (s-chop-prefix "#")
+        (s-left 1)
+        (s-numeric?)))
+
+(defmacro meq/rainbow-conditions (a b)
+    (and
+        (string= meq/var/current-theme-mode (symbol-name a))
+        (eval `(=
+                rainbow-identifiers-cie-l*a*b*-saturation
+                ,(meq/inconcat "meq/var/rainbow-identifiers-" (symbol-name b))))))
+
+;;;###autoload
 (defun meq/load-theme (theme) (interactive)
     (let* ((name (symbol-name theme))
-            (mode (car (last (split-string name "-")))))
+            (mode (car (last (split-string name "-"))))
+            (rmode (meq/inconcat "meq/var/rainbow-identifiers-saturation-" mode)))
 
         ;; Adapted From:
         ;; Answer: https://stackoverflow.com/a/18552615/10827766
@@ -128,31 +143,19 @@
         (customize-save-variable 'meq/var/current-theme-mode mode))
 
         (meq/same-color-switch name mode)
-        (load-theme theme)
+        (load-theme theme)        
         (with-eval-after-load 'rainbow-identifiers
             (rainbow-identifiers-mode 0)
-            (cond ((or
-                    (meq/rainbow-conditions light light)
-                    (meq/rainbow-conditions dark dark)) nil)
-                ((meq/rainbow-conditions light dark) (setq
-                                                        rainbow-identifiers-cie-l*a*b*-saturation
-                                                        meq/var/rainbow-identifiers-light)
-                                                    (setq
-                                                        rainbow-identifiers-cie-l*a*b*-lightness
-                                                        meq/var/rainbow-identifiers-dark))
-                ((meq/rainbow-conditions dark light) (setq
-                                                        rainbow-identifiers-cie-l*a*b*-saturation
-                                                        meq/var/rainbow-identifiers-dark)
-                                                    (setq
-                                                        rainbow-identifiers-cie-l*a*b*-lightness
-                                                        meq/var/rainbow-identifiers-light))
-                (t (eval `(setq
-                            rainbow-identifiers-cie-l*a*b*-saturation
-                            ,(meq/inconcat "meq/var/rainbow-identifiers-" meq/var/current-theme-mode)))
-                    (eval `(setq
-                            rainbow-identifiers-cie-l*a*b*-lightness
-                            ,(meq/inconcat "meq/var/rainbow-identifiers-"
-                                (if (string= meq/var/current-theme-mode "light") "dark" "light"))))))
+            (if (string= meq/var/current-theme-mode "dark")
+                
+                ;; Adapted From:
+                ;; Answer: https://emacs.stackexchange.com/a/29184/31428
+                ;; User: https://emacs.stackexchange.com/users/897/lindydancer
+                (if (meq/first-char-numeric-p (face-attribute 'default :background))
+                
+                    (eval `(setq rainbow-identifiers-cie-l*a*b*-saturation ,rmode))
+                    (setq rainbow-identifiers-cie-l*a*b*-saturation 275))
+                (eval `(setq rainbow-identifiers-cie-l*a*b*-saturation ,rmode)))
             (rainbow-identifiers-mode 1))))
 
 ;;;###autoload
