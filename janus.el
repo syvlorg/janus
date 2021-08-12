@@ -34,6 +34,10 @@
 (defcustom meq/var/current-theme-mode nil "The default theme mode.")
 (defvar meq/var/aliases '(:orange (orange flamingo-pink)))
 (defvar meq/var/modes '(:light nil :dark nil))
+(defvar meq/var/rainbow-identifiers-light 50)
+(defvar meq/var/rainbow-identifiers-dark 30)
+(setq rainbow-identifiers-cie-l*a*b*-color-count most-positive-fixnum)
+(setq rainbow-identifiers-choose-face-function 'rainbow-identifiers-cie-l*a*b*-choose-face)
 
 (mapc #'(lambda (color) (interactive)
     (mapc #'(lambda (alias) (interactive)
@@ -117,7 +121,32 @@
         (customize-save-variable 'meq/var/current-theme-mode mode))
 
         (meq/same-color-switch name mode)
-        (load-theme theme)))
+        (load-theme theme)
+        (with-eval-after-load 'rainbow-identifiers
+            (rainbow-identifiers-mode 0)
+            (cond ((or
+                    (meq/rainbow-conditions light light)
+                    (meq/rainbow-conditions dark dark)) nil)
+                ((meq/rainbow-conditions light dark) (setq
+                                                        rainbow-identifiers-cie-l*a*b*-saturation
+                                                        meq/var/rainbow-identifiers-light)
+                                                    (setq
+                                                        rainbow-identifiers-cie-l*a*b*-lightness
+                                                        meq/var/rainbow-identifiers-dark))
+                ((meq/rainbow-conditions dark light) (setq
+                                                        rainbow-identifiers-cie-l*a*b*-saturation
+                                                        meq/var/rainbow-identifiers-dark)
+                                                    (setq
+                                                        rainbow-identifiers-cie-l*a*b*-lightness
+                                                        meq/var/rainbow-identifiers-light))
+                (t (eval `(setq
+                            rainbow-identifiers-cie-l*a*b*-saturation
+                            ,(meq/inconcat "meq/var/rainbow-identifiers-" meq/var/current-theme-mode)))
+                    (eval `(setq
+                            rainbow-identifiers-cie-l*a*b*-lightness
+                            ,(meq/inconcat "meq/var/rainbow-identifiers-"
+                                (if (string= meq/var/current-theme-mode "light") "dark" "light"))))))
+            (rainbow-identifiers-mode 1))))
 
 ;;;###autoload
 (defun meq/which-theme nil (interactive)
