@@ -136,8 +136,8 @@
         (customize-save-variable 'meq/var/current-theme-mode mode))
 
         (meq/same-color-switch name mode)
-        (load-theme theme)        
-        (with-eval-after-load 'rainbow-identifiers
+        (load-theme theme)
+        (when (featurep 'rainbow-identifiers)
             (rainbow-identifiers-mode 0)
             (if (string= meq/var/current-theme-mode "dark")
                 
