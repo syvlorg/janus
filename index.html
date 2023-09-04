@@ -3,18 +3,18 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-11-14 Mon 05:49 -->
+<!-- 2023-09-04 Mon 12:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Jeet Ray" />
-<link rel="stylesheet" type="text/css" href="https://combinatronics.io/sylvorg/settings/main/src/styles/primary/syvl.css" />
-<link rel="icon" href="https://combinatronics.io/sylvorg/settings/main/src/icons/favicons/shiny-zigzagoon-galar.ico" sizes="any" />
-<link rel="icon" href="https://combinatronics.io/sylvorg/settings/main/src/icons/favicons/shiny-zigzagoon-galar.svg" />
-<link rel="manifest" href="https://combinatronics.io/sylvorg/settings/main/manifest.json" />
-<link rel="stylesheet" type="text/css" href="https://combinatronics.io/sylvorg/settings/main/src/styles/highlight/paraiso-dark.min.css" />
-<script src="https://combinatronics.io/sylvorg/settings/main/src/scripts/highlight/highlight.min.js"></script>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="https://combinatronics.io/sylvorg/bundle/main/src/styles/primary/syvl.css" />
+<link rel="icon" href="https://combinatronics.io/sylvorg/bundle/main/src/icons/favicons/shiny-zigzagoon-galar.ico" sizes="any" />
+<link rel="icon" href="https://combinatronics.io/sylvorg/bundle/main/src/icons/favicons/shiny-zigzagoon-galar.svg" />
+<link rel="manifest" href="https://combinatronics.io/sylvorg/bundle/main/manifest.json" />
+<link rel="stylesheet" type="text/css" href="https://combinatronics.io/sylvorg/bundle/main/src/styles/highlight/paraiso-dark.min.css" />
+<script src="https://combinatronics.io/sylvorg/bundle/main/src/scripts/highlight/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 <div class="header">
 <h1>We Are Syvlorg.</h1>
@@ -24,215 +24,193 @@
 <a href="https://resume.syvl.org">Résumé</a>
 <a href="https://index.syvl.org">Index</a>
 </div>
-<script type="text/javascript">
-// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
-<!--/*--><![CDATA[/*><!--*/
-     function CodeHighlightOn(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.add("code-highlighted");
-         target.classList.add("code-highlighted");
-       }
-     }
-     function CodeHighlightOff(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.remove("code-highlighted");
-         target.classList.remove("code-highlighted");
-       }
-     }
-    /*]]>*///-->
-// @license-end
-</script>
 </head>
 <body>
-<div id="content">
-<div id="table-of-contents">
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgdff3ae7">janus.el</a></li>
+<li><a href="#orgf6b9b53">janus.el</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgdff3ae7" class="outline-2">
-<h2 id="orgdff3ae7">janus.el</h2>
-<div class="outline-text-2" id="text-orgdff3ae7">
+<div id="outline-container-orgf6b9b53" class="outline-2">
+<h2 id="orgf6b9b53">janus.el</h2>
+<div class="outline-text-2" id="text-orgf6b9b53">
 <div class="org-src-container">
-<pre><code class="language-lisp match-braces rainbow-braces">;;; janus.el --- a simple package                     -*- lexical-binding: t; -*-
+<pre><code class="language-lisp match-braces rainbow-braces"><span style="font-weight: bold; font-style: italic;">;;; </span><span style="font-weight: bold; font-style: italic;">janus.el --- a simple package                     -*- lexical-binding: t; -*-</span>
 
-;; Copyright (C) 2021  Jeet Ray
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Copyright (C) 2021  Jeet Ray</span>
 
-;; Author: Jeet Ray &lt;aiern@protonmail.com&gt;
-;; Keywords: lisp
-;; Version: 0.0.1
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Author: Jeet Ray <a href="mailto:aiern%40protonmail.com">&lt;aiern@protonmail.com&gt;</a></span>
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Keywords: lisp</span>
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Version: 0.0.1</span>
 
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">This program is free software; you can redistribute it and/or modify</span>
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">it under the terms of the GNU General Public License as published by</span>
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">the Free Software Foundation, either version 3 of the License, or</span>
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">(at your option) any later version.</span>
 
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">This program is distributed in the hope that it will be useful,</span>
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">GNU General Public License for more details.</span>
 
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">You should have received a copy of the GNU General Public License</span>
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">along with this program.  If not, see <a href="http://www.gnu.org/licenses/">&lt;http://www.gnu.org/licenses/&gt;</a>.</span>
 
-;;; Commentary:
+<span style="font-weight: bold; font-style: italic;">;;; </span><span style="font-weight: bold; font-style: italic;">Commentary:</span>
 
-;; Put a description of the package here
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Put a description of the package here</span>
 
-;;; Code:
+<span style="font-weight: bold; font-style: italic;">;;; </span><span style="font-weight: bold; font-style: italic;">Code:</span>
 
-(require 'cl-lib)
-(require 's)
-(require 'dash)
-(require 'meq)
+(<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">cl-lib</span>)
+(<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">s</span>)
+(<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">dash</span>)
+(<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">meq</span>)
 
-(defcustom meq/var/current-theme nil "The default theme.")
-(defcustom meq/var/current-theme-mode nil "The default theme mode.")
-(defvar meq/var/aliases '(:orange (orange flamingo-pink)))
-(defvar meq/var/modes '(:light nil :dark nil))
-(defvar meq/var/rainbow-identifiers-saturation-light 50)
-(defvar meq/var/rainbow-identifiers-saturation-dark 30)
-(setq rainbow-identifiers-cie-l*a*b*-color-count most-positive-fixnum)
-(setq rainbow-identifiers-choose-face-function 'rainbow-identifiers-cie-l*a*b*-choose-face)
+(<span style="font-weight: bold;">defcustom</span> <span style="font-weight: bold; font-style: italic;">meq/var/current-theme</span> nil <span style="font-style: italic;">"The default theme."</span>)
+(<span style="font-weight: bold;">defcustom</span> <span style="font-weight: bold; font-style: italic;">meq/var/current-theme-mode</span> nil <span style="font-style: italic;">"The default theme mode."</span>)
+(<span style="font-weight: bold;">defvar</span> <span style="font-weight: bold; font-style: italic;">meq/var/aliases</span> '(<span style="font-weight: bold;">:orange</span> (orange flamingo-pink)))
+(<span style="font-weight: bold;">defvar</span> <span style="font-weight: bold; font-style: italic;">meq/var/modes</span> '(<span style="font-weight: bold;">:light</span> nil <span style="font-weight: bold;">:dark</span> nil))
+(<span style="font-weight: bold;">defvar</span> <span style="font-weight: bold; font-style: italic;">meq/var/rainbow-identifiers-saturation-light</span> 50)
+(<span style="font-weight: bold;">defvar</span> <span style="font-weight: bold; font-style: italic;">meq/var/rainbow-identifiers-saturation-dark</span> 30)
+(<span style="font-weight: bold;">setq</span> rainbow-identifiers-cie-l*a*b*-color-count most-positive-fixnum)
+(<span style="font-weight: bold;">setq</span> rainbow-identifiers-choose-face-function 'rainbow-identifiers-cie-l*a*b*-choose-face)
 
-(mapc #'(lambda (color) (interactive)
-    (mapc #'(lambda (alias) (interactive)
-        (push alias (cl-getf meq/var/modes :light))) (cl-getf meq/var/aliases color)))
-    '(:orange))
+(mapc #'(<span style="font-weight: bold;">lambda</span> (color) (<span style="font-weight: bold;">interactive</span>)
+    (mapc #'(<span style="font-weight: bold;">lambda</span> (alias) (<span style="font-weight: bold;">interactive</span>)
+        (<span style="font-weight: bold;">push</span> alias (cl-getf meq/var/modes <span style="font-weight: bold;">:light</span>))) <span style="font-weight: bold;">(cl-getf meq/var/aliases color)))</span>
+    '(<span style="font-weight: bold;">:orange</span>))
 
-(mapc #'(lambda (color) (interactive)
-    (mapc #'(lambda (alias) (interactive)
-        (push alias (cl-getf meq/var/modes :dark))) (cl-getf meq/var/aliases color)))
+(mapc #'(<span style="font-weight: bold;">lambda</span> (color) (<span style="font-weight: bold;">interactive</span>)
+    (mapc #'(<span style="font-weight: bold;">lambda</span> (alias) (<span style="font-weight: bold;">interactive</span>)
+        (<span style="font-weight: bold;">push</span> alias (cl-getf meq/var/modes <span style="font-weight: bold;">:dark</span>))) <span style="font-weight: bold;">(cl-getf meq/var/aliases color)))</span>
     '())
 
-(defvar meq/var/faces `(
-    ;; Adapted From: http://ergoemacs.org/emacs/elisp_define_face.html
+(<span style="font-weight: bold;">defvar</span> <span style="font-weight: bold; font-style: italic;">meq/var/faces</span> `(
+    <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Adapted From: http://ergoemacs.org/emacs/elisp_define_face.html</span>
     (flamingo-pink . (
-                    ;; :alternate ((((class color) (background light))
-                    ;;                 :foreground "#ab5dee" :bold t)
-                    ;;                 (((class color) (background dark))
-                    ;;                 :foreground "#fca78e" :bold t))
-                    :alternate ((t (:foreground "#ab5dee" :bold t)))
-                    :original ((t (:foreground "#fca78e" :bold t)))
-                    :aliases ,(cl-getf meq/var/aliases :orange)))
+                    <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">:alternate ((((class color) (background light))</span>
+                    <span style="font-weight: bold; font-style: italic;">;;                 </span><span style="font-weight: bold; font-style: italic;">:foreground "#ab5dee" :bold t)</span>
+                    <span style="font-weight: bold; font-style: italic;">;;                 </span><span style="font-weight: bold; font-style: italic;">(((class color) (background dark))</span>
+                    <span style="font-weight: bold; font-style: italic;">;;                 </span><span style="font-weight: bold; font-style: italic;">:foreground "#fca78e" :bold t))</span>
+                    <span style="font-weight: bold;">:alternate</span> ((t (<span style="font-weight: bold;">:foreground</span> <span style="font-style: italic;">"#ab5dee"</span> <span style="font-weight: bold;">:bold</span> t)))
+                    <span style="font-weight: bold;">:original</span> ((t (<span style="font-weight: bold;">:foreground</span> <span style="font-style: italic;">"#fca78e"</span> <span style="font-weight: bold;">:bold</span> t)))
+                    <span style="font-weight: bold;">:aliases</span> ,(cl-getf meq/var/aliases <span style="font-weight: bold;">:orange</span>)))
     (orange . (
-                    ;; :alternate ((((class color) (background light))
-                    ;;                 :foreground "#ab5dee" :bold t)
-                    ;;                 (((class color) (background dark))
-                    ;;                 :foreground "#ffb86c" :bold t))
-                    :alternate ((t (:foreground "#ab5dee" :bold t)))
-                    :original ((t (:foreground "#ffb86c" :bold t)))
-                    :aliases ,(cl-getf meq/var/aliases :orange)))))
+                    <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">:alternate ((((class color) (background light))</span>
+                    <span style="font-weight: bold; font-style: italic;">;;                 </span><span style="font-weight: bold; font-style: italic;">:foreground "#ab5dee" :bold t)</span>
+                    <span style="font-weight: bold; font-style: italic;">;;                 </span><span style="font-weight: bold; font-style: italic;">(((class color) (background dark))</span>
+                    <span style="font-weight: bold; font-style: italic;">;;                 </span><span style="font-weight: bold; font-style: italic;">:foreground "#ffb86c" :bold t))</span>
+                    <span style="font-weight: bold;">:alternate</span> ((t (<span style="font-weight: bold;">:foreground</span> <span style="font-style: italic;">"#ab5dee"</span> <span style="font-weight: bold;">:bold</span> t)))
+                    <span style="font-weight: bold;">:original</span> ((t (<span style="font-weight: bold;">:foreground</span> <span style="font-style: italic;">"#ffb86c"</span> <span style="font-weight: bold;">:bold</span> t)))
+                    <span style="font-weight: bold;">:aliases</span> ,(cl-getf meq/var/aliases <span style="font-weight: bold;">:orange</span>)))))
 
-;;;###autoload
-(defmacro meq/set-alternate-color (color) (interactive)
+<span style="font-weight: bold; font-style: italic;">;;;</span><span style="font-weight: bold; font-style: italic;">###</span><span style="font-weight: bold; font-style: italic;">autoload</span>
+(<span style="font-weight: bold;">defmacro</span> <span style="font-weight: bold;">meq/set-alternate-color</span> (color) (<span style="font-weight: bold;">interactive</span>)
     (face-spec-set
-        (meq/inconcat "meq/" (symbol-name color))
-        (cl-getf (cdr (assq color meq/var/faces)) :alternate)
+        (meq/inconcat <span style="font-style: italic;">"meq/"</span> (symbol-name color))
+        (cl-getf (cdr (assq color meq/var/faces)) <span style="font-weight: bold;">:alternate</span>)
         'face-defface-spec))
 
-;;;###autoload
-(defmacro meq/set-original-color (color) (interactive)
+<span style="font-weight: bold; font-style: italic;">;;;</span><span style="font-weight: bold; font-style: italic;">###</span><span style="font-weight: bold; font-style: italic;">autoload</span>
+(<span style="font-weight: bold;">defmacro</span> <span style="font-weight: bold;">meq/set-original-color</span> (color) (<span style="font-weight: bold;">interactive</span>)
     (face-spec-set
-        (meq/inconcat "meq/" (symbol-name color))
-        (cl-getf (cdr (assq color meq/var/faces)) :original)
+        (meq/inconcat <span style="font-style: italic;">"meq/"</span> (symbol-name color))
+        (cl-getf (cdr (assq color meq/var/faces)) <span style="font-weight: bold;">:original</span>)
         'face-defface-spec))
 
-;;;###autoload
-(defun meq/same-color-switch (name mode) (interactive)
-    (mapc #'(lambda (color) (interactive)
-        (let* ((contains-list (mapcar #'(lambda (alias) (interactive)
-            (and
+<span style="font-weight: bold; font-style: italic;">;;;</span><span style="font-weight: bold; font-style: italic;">###</span><span style="font-weight: bold; font-style: italic;">autoload</span>
+(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">meq/same-color-switch</span> (name mode) (<span style="font-weight: bold;">interactive</span>)
+    (mapc #'(<span style="font-weight: bold;">lambda</span> (color) (<span style="font-weight: bold;">interactive</span>)
+        (<span style="font-weight: bold;">let*</span> ((contains-list (mapcar #'(<span style="font-weight: bold;">lambda</span> (alias) (<span style="font-weight: bold;">interactive</span>)
+            (<span style="font-weight: bold;">and</span>
                 (s-contains? (symbol-name alias) name)
                 (member alias (cl-getf
                     meq/var/modes
-                    (meq/inconcat ":" mode))))) (cl-getf (cdr color) :aliases))))
-        (if (--any? (and it t) contains-list)
+                    (meq/inconcat <span style="font-style: italic;">":"</span> mode))))) <span style="font-weight: bold;">(cl-getf (cdr color) </span><span style="font-weight: bold;">:aliases</span><span style="font-weight: bold;">))))</span>
+        (<span style="font-weight: bold;">if</span> (<span style="font-weight: bold;">--any?</span> (<span style="font-weight: bold;">and</span> it t) contains-list)
             (eval `(meq/set-alternate-color ,(car color)))
-            (eval `(meq/set-original-color ,(car color)))))) meq/var/faces))
+            (eval `(meq/set-original-color ,(car color)))))) <span style="font-weight: bold;">meq/var/faces))</span>
 
-;; (mapc #'(lambda (color) (interactive)
-;;     (eval `(defface
-;;         ,(meq/inconcat "meq/" (symbol-name (car color)))
-;;         ',(cl-getf (cdr color)  :original)
-;;         ,(symbol-name (car color))))) meq/var/faces)
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">(mapc #'(lambda (color) (interactive)</span>
+<span style="font-weight: bold; font-style: italic;">;;     </span><span style="font-weight: bold; font-style: italic;">(eval `(defface</span>
+<span style="font-weight: bold; font-style: italic;">;;         </span><span style="font-weight: bold; font-style: italic;">,(meq/inconcat "meq/" (symbol-name (car color)))</span>
+<span style="font-weight: bold; font-style: italic;">;;         </span><span style="font-weight: bold; font-style: italic;">',(cl-getf (cdr color)  :original)</span>
+<span style="font-weight: bold; font-style: italic;">;;         </span><span style="font-weight: bold; font-style: italic;">,(symbol-name (car color))))) meq/var/faces)</span>
 
-(mapc #'(lambda (color) (interactive)
+(mapc #'(<span style="font-weight: bold;">lambda</span> (color) (<span style="font-weight: bold;">interactive</span>)
     `(face-spec-set
-        ,(meq/inconcat "meq/" (symbol-name (car color)))
-        ',(cl-getf (cdr color) :original)
-        'face-defface-spec)) meq/var/faces)
+        ,(meq/inconcat <span style="font-style: italic;">"meq/"</span> (symbol-name (car color)))
+        ',(cl-getf (cdr color) <span style="font-weight: bold;">:original</span>)
+        'face-defface-spec)) <span style="font-weight: bold;">meq/var/faces)</span>
 
-;;;###autoload
-(defun meq/first-char-numeric-p (hex)
-    (s-with hex
-        (s-chop-prefix "#")
+<span style="font-weight: bold; font-style: italic;">;;;</span><span style="font-weight: bold; font-style: italic;">###</span><span style="font-weight: bold; font-style: italic;">autoload</span>
+(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">meq/first-char-numeric-p</span> (hex)
+    (<span style="font-weight: bold;">s-with</span> hex
+        (s-chop-prefix <span style="font-style: italic;">"#"</span>)
         (s-left 1)
         (s-numeric?)))
 
-(defmacro meq/rainbow-conditions (a b)
-    (and
+(<span style="font-weight: bold;">defmacro</span> <span style="font-weight: bold;">meq/rainbow-conditions</span> (a b)
+    (<span style="font-weight: bold;">and</span>
         (string= meq/var/current-theme-mode (symbol-name a))
         (eval `(=
                 rainbow-identifiers-cie-l*a*b*-saturation
-                ,(meq/inconcat "meq/var/rainbow-identifiers-" (symbol-name b))))))
+                ,(meq/inconcat <span style="font-style: italic;">"meq/var/rainbow-identifiers-"</span> (symbol-name b))))))
 
-;;;###autoload
-(defun meq/load-theme (theme) (interactive)
-    (let* ((name (symbol-name theme))
-            (mode (car (last (split-string name "-"))))
-            (rmode (meq/inconcat "meq/var/rainbow-identifiers-saturation-" mode)))
+<span style="font-weight: bold; font-style: italic;">;;;</span><span style="font-weight: bold; font-style: italic;">###</span><span style="font-weight: bold; font-style: italic;">autoload</span>
+(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">meq/load-theme</span> (theme) (<span style="font-weight: bold;">interactive</span>)
+    (<span style="font-weight: bold;">let*</span> ((name (symbol-name theme))
+            (mode (car (last (split-string name <span style="font-style: italic;">"-"</span>))))
+            (rmode (meq/inconcat <span style="font-style: italic;">"meq/var/rainbow-identifiers-saturation-"</span> mode)))
 
-        ;; Adapted From:
-        ;; Answer: https://stackoverflow.com/a/18552615/10827766
-        ;; User: https://stackoverflow.com/users/729907/drew
-        (save-excursion (setq meq/var/current-theme theme)
+        <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Adapted From:</span>
+        <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Answer: https://stackoverflow.com/a/18552615/10827766</span>
+        <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">User: https://stackoverflow.com/users/729907/drew</span>
+        (<span style="font-weight: bold;">save-excursion</span> (<span style="font-weight: bold;">setq</span> meq/var/current-theme theme)
         (customize-save-variable 'meq/var/current-theme theme)
-        (setq meq/var/current-theme-mode mode)
+        (<span style="font-weight: bold;">setq</span> meq/var/current-theme-mode mode)
         (customize-save-variable 'meq/var/current-theme-mode mode))
 
         (meq/same-color-switch name mode)
         (load-theme theme)
-        (when (featurep 'rainbow-identifiers)
+        (<span style="font-weight: bold;">when</span> (<span style="font-weight: bold;">featurep</span> '<span style="font-weight: bold; text-decoration: underline;">rainbow-identifiers</span>)
             (rainbow-identifiers-mode 0)
-            (if (string= meq/var/current-theme-mode "dark")
+            (<span style="font-weight: bold;">if</span> (string= meq/var/current-theme-mode <span style="font-style: italic;">"dark"</span>)
                 
-                ;; Adapted From:
-                ;; Answer: https://emacs.stackexchange.com/a/29184/31428
-                ;; User: https://emacs.stackexchange.com/users/897/lindydancer
-                (if (meq/first-char-numeric-p (face-attribute 'default :background))
+                <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Adapted From:</span>
+                <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Answer: https://emacs.stackexchange.com/a/29184/31428</span>
+                <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">User: https://emacs.stackexchange.com/users/897/lindydancer</span>
+                (<span style="font-weight: bold;">if</span> (meq/first-char-numeric-p (face-attribute 'default <span style="font-weight: bold;">:background</span>))
                 
-                    (eval `(setq rainbow-identifiers-cie-l*a*b*-saturation ,rmode))
-                    (setq rainbow-identifiers-cie-l*a*b*-saturation 275))
-                (eval `(setq rainbow-identifiers-cie-l*a*b*-saturation ,rmode)))
+                    (eval `(<span style="font-weight: bold;">setq</span> rainbow-identifiers-cie-l*a*b*-saturation ,rmode))
+                    (<span style="font-weight: bold;">setq</span> rainbow-identifiers-cie-l*a*b*-saturation 275))
+                (eval `(<span style="font-weight: bold;">setq</span> rainbow-identifiers-cie-l*a*b*-saturation ,rmode)))
             (rainbow-identifiers-mode 1))))
 
-;;;###autoload
-(defun meq/which-theme nil (interactive)
-    (meq/when-item-in-cla "--theme"
-        (let* ((name (meq/get-next-in-cla "--theme")))
+<span style="font-weight: bold; font-style: italic;">;;;</span><span style="font-weight: bold; font-style: italic;">###</span><span style="font-weight: bold; font-style: italic;">autoload</span>
+(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">meq/which-theme</span> nil (<span style="font-weight: bold;">interactive</span>)
+    (meq/when-item-in-cla <span style="font-style: italic;">"--theme"</span>
+        (<span style="font-weight: bold;">let*</span> ((name (meq/get-next-in-cla <span style="font-style: italic;">"--theme"</span>)))
             (meq/load-theme (intern (concat
                 name
-                (if (meq/item-in-cla "--light") "-light" "-dark"))))
-            (delete "--dark" command-line-args))))
+                (<span style="font-weight: bold;">if</span> (meq/item-in-cla <span style="font-style: italic;">"--light"</span>) <span style="font-style: italic;">"-light"</span> <span style="font-style: italic;">"-dark"</span>))))
+            (delete <span style="font-style: italic;">"--dark"</span> command-line-args))))
 
-;;;###autoload
-(defun meq/switch-theme-mode nil (interactive)
+<span style="font-weight: bold; font-style: italic;">;;;</span><span style="font-weight: bold; font-style: italic;">###</span><span style="font-weight: bold; font-style: italic;">autoload</span>
+(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">meq/switch-theme-mode</span> nil (<span style="font-weight: bold;">interactive</span>)
     (meq/load-theme (intern (concat
-        (replace-regexp-in-string "-dark" "" (replace-regexp-in-string "-light" "" (symbol-name meq/var/current-theme)))
-        "-"
-        (if (string= meq/var/current-theme-mode "light") "dark" "light")))))
+        (replace-regexp-in-string <span style="font-style: italic;">"-dark"</span> <span style="font-style: italic;">""</span> (replace-regexp-in-string <span style="font-style: italic;">"-light"</span> <span style="font-style: italic;">""</span> (symbol-name meq/var/current-theme)))
+        <span style="font-style: italic;">"-"</span>
+        (<span style="font-weight: bold;">if</span> (string= meq/var/current-theme-mode <span style="font-style: italic;">"light"</span>) <span style="font-style: italic;">"dark"</span> <span style="font-style: italic;">"light"</span>)))))
 
-(provide 'janus)
-;;; janus.el ends here
+(<span style="font-weight: bold;">provide</span> '<span style="font-weight: bold; text-decoration: underline;">janus</span>)
+<span style="font-weight: bold; font-style: italic;">;;; </span><span style="font-weight: bold; font-style: italic;">janus.el ends here</span>
 </code></pre>
 </div>
 </div>
@@ -240,7 +218,7 @@
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Jeet Ray</p>
-<p class="date">Created: 2022-11-14 Mon 05:49</p>
+<p class="date">Created: 2023-09-04 Mon 12:25</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
